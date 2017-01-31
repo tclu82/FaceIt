@@ -92,15 +92,18 @@ class FaceViewController: UIViewController
     
     private func updateUI()
     {
-        switch expression.eyes
+        if faceView != nil
         {
-        case .open: faceView.eyesOpen = true
-        case . closed: faceView.eyesOpen = false
-        case .squinting: faceView.eyesOpen = false
+            switch expression.eyes
+            {
+            case .open: faceView.eyesOpen = true
+            case . closed: faceView.eyesOpen = false
+            case .squinting: faceView.eyesOpen = false
+            }
+            // Because dictionary look up is Optional type, but mouthCurvature is Double
+            faceView.mouthCurvature = mouthCurvatures[expression.mouth] ?? 0.0 // default 0
+            
+            faceView.eyeBrowTilt = eyeBrowTilts[expression.eyeBrows] ?? 0.0
         }
-        // Because dictionary look up is Optional type, but mouthCurvature is Double
-        faceView.mouthCurvature = mouthCurvatures[expression.mouth] ?? 0.0 // default 0
-        
-        faceView.eyeBrowTilt = eyeBrowTilts[expression.eyeBrows] ?? 0.0
     }
 }
